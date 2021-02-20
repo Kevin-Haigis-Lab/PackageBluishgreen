@@ -28,6 +28,7 @@ repos:
           (?x)^(
           data/.*| 
           inst/extdata/.*|
+          .github/.*|
           (.*/|)\.Rprofile|
           (.*/|)\.Renviron|
           (.*/|)\.gitignore|

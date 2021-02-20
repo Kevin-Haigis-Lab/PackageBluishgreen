@@ -4,6 +4,8 @@
 # PackageBluishgreen
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/Kevin-Haigis-Lab/PackageBluishgreen/workflows/R-CMD-check/badge.svg)](https://github.com/Kevin-Haigis-Lab/PackageBluishgreen/actions)
 <!-- badges: end -->
 
 The goal of PackageBluishgreen is to …

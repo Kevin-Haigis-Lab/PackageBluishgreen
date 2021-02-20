@@ -80,3 +80,4 @@ vignettes/*.pdf
 
 renv/
 renv.lock
+docs
