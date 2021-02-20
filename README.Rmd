@@ -11,6 +11,8 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+
+library(dplyr)
 ```
 
 # PackageBluishgreen
@@ -34,6 +36,10 @@ install.packages("PackageBluishgreen")
 This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
-# library(PackageBluishgreen)
-## basic example code
+library(PackageBluishgreen)
+
+data <- system.file("extdata", "unmicst-OP1513_lung_TUNEL.csv", package = "PackageBluishgreen") %>%
+  readr::read_csv(col_types = readr::cols())
+
+head(data)
 ```
