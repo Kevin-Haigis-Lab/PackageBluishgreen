@@ -23,10 +23,13 @@ repos:
     hooks: 
     -   id: style-files
         args: [--style_pkg=styler, --style_fun=tidyverse_style]    
+        exclude: renv/.*
     -   id: spell-check
         exclude: >
           (?x)^(
           data/.*| 
+          renv/.*|
+          renv.lock|
           inst/extdata/.*|
           .github/.*|
           (.*/|)\.Rprofile|
