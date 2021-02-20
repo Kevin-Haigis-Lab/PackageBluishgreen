@@ -27,6 +27,7 @@ repos:
         exclude: >
           (?x)^(
           data/.*| 
+          inst/extdata/.*|
           (.*/|)\.Rprofile|
           (.*/|)\.Renviron|
           (.*/|)\.gitignore|
