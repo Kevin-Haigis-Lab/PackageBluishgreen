@@ -1,0 +1,18 @@
+Package: PackageBluishgreen
+Title: Classify cells by fluorescence
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Joshua",
+           family = "Cook",
+           role = c("aut", "cre"),
+           email = "joshuacook0023@gmail.com",
+           comment = c(ORCID = "0000-0001-9815-6879"))
+Description: A package made specifically to segment cells by their fluorescence fof Olesja Popow.
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Suggests: 
+    spelling
+Language: en-US
