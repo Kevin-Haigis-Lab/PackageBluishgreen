@@ -6,9 +6,17 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/Kevin-Haigis-Lab/PackageBluishgreen/workflows/R-CMD-check/badge.svg)](https://github.com/Kevin-Haigis-Lab/PackageBluishgreen/actions)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
-The goal of PackageBluishgreen is to …
+The goal of `PackageBluishgreen` is to package the internals for
+clustering cells for Olesja Popow (pronounced “pow pow”). The cells were
+identified using the TUNEL algorithm which output DAPI and FITC values
+for each cell into a CSV. This package takes these outputs and clusters
+them by their FITC intensity.
+
+> This package is still under development and the API may change.
 
 ## Installation
 
@@ -53,158 +61,33 @@ head(lung_data)
 ```
 
 ``` r
-new_manual_classification <- function(assignments = factor(), cutoff = double(), transform = identity) {
-  stopifnot(is.factor(assignments))
-  stopifnot(is.numeric(cutoff))
-  stopifnot(is.function(transform))
-  structure(
-    assignments,
-    cutoff = cutoff,
-    transform = transform,
-    class = c("manual_classification", "factor")
-  )
-}
-
-validate_manual_classification <- function(mc) {
-  stopifnot(is.factor(mc))
-  stopifnot(is.numeric(attr(mc, "cutoff")))
-  stopifnot(is.function(attr(mc, "transform")))
-  return(TRUE)
-}
-
-manual_classification <- function(assignments = factor(), cutoff = NA_real_, transform = identity) {
-  if (is.list(assignments)) {
-    assignments <- unlist(assignments)
-  }
-  if (!is.factor(assignments)) {
-    assignments <- factor(assignments)
-  }
-
-  mc <- new_manual_classification(assignments = assignments, cutoff = cutoff, transform = transform)
-
-  validate_manual_classification(mc)
-  return(mc)
-}
-
-mc <- manual_classification()
+lung_slide <- tissue_slide(lung_data)
 ```
 
 ``` r
-new_tissue_slide <- function(data = tibble()) {
-  stopifnot(inherits(data, "data.frame"))
-  structure(
-    data,
-    manual_class = manual_classification(),
-    class = c("tissue_slide", class(tibble()))
-  )
-}
-
-validate_tissue_slide <- function(ts) {
-  stopifnot(inherits(ts, "tissue_slide"))
-  stopifnot(inherits(ts, "data.frame"))
-  assertr::verify(ts, assertr::has_all_names("x", "y", "fitc"))
-
-  stopifnot(inherits(attr(ts, "manual_class"), "manual_classification"))
-
-  return(TRUE)
-}
-
-get_manual_classification <- function(ts) {
-  validate_tissue_slide(ts)
-  attr(ts, "manual_class")
-}
-
-set_manual_classification <- function(ts, manual_class) {
-  validate_tissue_slide(ts)
-  validate_manual_classification(manual_class)
-  attr(ts, "manual_class") <- manual_class
-  validate_tissue_slide(ts)
-  return(ts)
-}
-
-tissue_slide <- function(slide_data) {
-  new_tissue_slide(slide_data)
-}
-
-lung_slide <- new_tissue_slide(lung_data)
-validate_tissue_slide(lung_slide)
-#> [1] TRUE
-```
-
-``` r
-standard_tissue_plot <- function(p) {
-  p +
-    scale_x_continuous(expand = expansion(c(0, 0))) +
-    scale_y_continuous(expand = expansion(c(0, 0))) +
-    theme_classic() %+replace%
-    theme(axis.title = element_blank())
-}
-
-plot_tissue <- function(ts, prop = 0.25) {
-  validate_tissue_slide(ts)
-  p <- ts %>%
-    slice_sample(prop = prop) %>%
-    ggplot(aes(x = x, y = y, color = log10(fitc))) +
-    geom_point(size = 0.5, alpha = 0.9)
-
-  standard_tissue_plot(p) +
-    scale_color_distiller(type = "div", palette = "RdYlBu") +
-    labs(color = "log10(FITC)")
-}
-
 plot_tissue(lung_slide)
+```
+
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+
+``` r
+plot_fitc_density(lung_slide)
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
 ``` r
-plot_fitc_density <- function(ts) {
-  ts %>%
-    ggplot(aes(x = log10(fitc))) +
-    geom_density(alpha = 0.1, size = 0.8, color = "black", fill = "black") +
-    scale_y_continuous(expand = expansion(c(0, 0.02))) +
-    theme_classic() +
-    labs(x = "log10(FITC)", y = "density")
-}
-
-plot_fitc_density(lung_slide)
+lung_slide <- cluster_manually(lung_slide, cutoff = 4, transform = log10)
+plot_slide_clusters(lung_slide)
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
 ``` r
-cluster_manually <- function(ts, cutoff, transform = identity) {
-  validate_tissue_slide(ts)
-  mc <- manual_classification(
-    assignments = ifelse(transform(ts$fitc) < cutoff, 1, 2),
-    cutoff = cutoff,
-    transform = transform
-  )
-  ts <- set_manual_classification(ts, mc)
-  validate_tissue_slide(ts)
-  return(ts)
-}
+summarize_cluster_results(lung_slide)
+#> # A tibble: 2 x 2
+#>   manual_cluster      n
+#> * <fct>           <int>
+#> 1 1              153258
+#> 2 2               19132
 ```
-
-``` r
-lung_slide <- cluster_manually(lung_slide, cutoff = 4, transform = log10)
-```
-
-``` r
-plot_slide_clusters <- function(ts, cluster = "manual", prop = 0.25) {
-  ts$.cluster <- get_manual_classification(ts)
-  ts <- slice_sample(ts, prop = prop)
-  p <- ggplot(ts, aes(x = x, y = y, color = .cluster, alpha = .cluster)) +
-    geom_point(size = 0.5)
-
-  standard_tissue_plot(p) +
-    scale_color_brewer(type = "qual", palette = "Set1", direction = -1) +
-    scale_alpha_manual(values = c(0.2, 0.7))
-}
-```
-
-``` r
-plot_slide_clusters(lung_slide)
-```
-
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
