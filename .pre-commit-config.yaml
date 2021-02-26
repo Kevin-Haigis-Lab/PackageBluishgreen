@@ -7,9 +7,10 @@ repos:
     -   id: check-added-large-files
         args: ['--maxkb=80000']
     -   id: end-of-file-fixer
-        exclude: '\.Rd'
+        exclude: '\.Rd|docs/.*'
     -   id: check-json
     -   id: pretty-format-json
+        exclude: 'docs/.*'
 -   repo: local
     hooks:
     -   id: forbid-to-commit
@@ -27,6 +28,7 @@ repos:
     -   id: spell-check
         exclude: >
           (?x)^(
+          docs/.*|
           data/.*| 
           renv/.*|
           renv.lock|
