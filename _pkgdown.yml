@@ -1,0 +1,60 @@
+template:
+  params:
+    bootswatch: flatly
+navbar:
+  structure:
+    left:
+    - home
+    - reference
+    right:
+    - news
+    - github
+  components:
+    home:
+      icon: fa-home fa-lg
+      href: index.html
+    reference:
+      text: Reference
+      href: reference/index.html
+    news:
+      text: News
+      href: news/index.html
+    github:
+      icon: fa-github fa-lg
+      href: https://github.com/Kevin-Haigis-Lab/PackageBluishgreen
+
+reference:
+- title: Tissue Slide
+  desc: >
+    The tissue slide object stores and organizes the data of the cells and
+    and applied classification methods.
+  contents:
+  - tissue_slide
+
+- title: Classification
+  desc: >
+    Methods for classifying the data in tissue slide objects.
+  contents:
+  - manual_classification
+  - cluster_manually
+  - get_manual_classification
+
+- title: Statisitics and summarization
+  desc: >
+    Functions for analyzing and summarizing clusters.
+  contents:
+  - summarize_cluster_results
+
+- title: Visualization
+  desc: >
+    Functions to visualize the data and classification results.
+  contents:
+  - plot_tissue
+  - plot_density
+  - plot_slide_clusters
+
+- title: Data
+  desc: >
+    Some example data sets.
+  contents:
+  - pancreas
