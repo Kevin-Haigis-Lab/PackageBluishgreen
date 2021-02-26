@@ -21,5 +21,4 @@ Plots the slide with each point representing a cell and the color represents the
 }
 \examples{
 plot_tissue(tissue_slide(pancreas), color = fitc)
-
 }
