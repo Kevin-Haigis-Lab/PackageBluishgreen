@@ -9,6 +9,7 @@ af
 Affero
 args
 askpass
+assertr
 assertthat
 aut
 ba
@@ -40,6 +41,7 @@ cffcc
 cli
 CMD
 commonmark
+Config
 copyrightable
 cpp
 cran
@@ -55,6 +57,7 @@ df
 dfcd
 dff
 downlit
+dplyr
 eaaad
 eaec
 eb
@@ -74,6 +77,7 @@ ee
 efb
 efd
 efeefa
+enquoted
 env
 fac
 fansi
@@ -98,6 +102,7 @@ FITC
 fof
 fs
 fsf
+ggplot
 github
 gmail
 highr
@@ -123,6 +128,7 @@ ORCID
 PackageBluishgreen
 pkgconfig
 pkgdown
+po
 Popow
 processx
 ps
@@ -144,10 +150,13 @@ stringi
 stringr
 sublicenses
 Sublicensing
+summarizesed
 sys
 systemfonts
+testthat
 textshaping
 tibble
+tidyr
 tinytex
 TUNEL
 utf
