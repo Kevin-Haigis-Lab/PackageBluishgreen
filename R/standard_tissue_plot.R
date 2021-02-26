@@ -1,4 +1,4 @@
-# Some standard modifications to tissue slide plots.
+# Some standard modifications to tissue slide plots. (not exported)
 standard_tissue_plot <- function(p) {
   p +
     scale_x_continuous(expand = expansion(c(0, 0))) +

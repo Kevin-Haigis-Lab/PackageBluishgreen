@@ -4,10 +4,12 @@
 \alias{cluster_manually}
 \title{Cluster the cells using a manual cutoff}
 \usage{
-cluster_manually(ts, cutoff, transform = identity)
+cluster_manually(ts, value, cutoff, transform = identity)
 }
 \arguments{
 \item{ts}{A tissue slide object.}
+
+\item{value}{The name of the column to use for classification. (enquoted)}
 
 \item{cutoff}{A value to use as the cutoff point for the manual classification of the cells.}
 
@@ -18,4 +20,13 @@ The tissue slide object with a value in the "manual_classification" attribute.
 }
 \description{
 Cluster the cells using a manual cutoff
+}
+\examples{
+pancreas_slide <- tissue_slide(pancreas)
+pancreas_slide <- cluster_manually(pancreas_slide,
+                                   fitc,
+                                   cutoff = 4,
+                                   transform = log10)
+get_manual_classification(pancreas_slide)
+
 }

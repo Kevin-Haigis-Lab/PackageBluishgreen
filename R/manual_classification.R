@@ -8,6 +8,20 @@
 #'
 #' @return A manual classification that behaves like a factor.
 #'
+#' @examples
+#' # An empty classification.
+#' manual_classification()
+#'
+#' # The numeric assignments will be turned into a factor.
+#' manual_classification(c(1, 2, 1, 2, 1, 1), cutoff = 4000)
+#'
+#' # Provide a different function used to transform the data before
+#' # applying the cutoff.
+#' manual_classification(
+#'   c("a", "a", "b", "a", "b"),
+#'   cutoff = 2.5,
+#'   transform = log10
+#' )
 #' @export manual_classification
 manual_classification <- function(assignments = factor(), cutoff = NA_real_, transform = identity) {
   if (is.list(assignments)) {

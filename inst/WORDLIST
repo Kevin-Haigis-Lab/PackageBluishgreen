@@ -41,6 +41,7 @@ cffcc
 cli
 CMD
 commonmark
+Config
 copyrightable
 cpp
 cran
@@ -76,6 +77,7 @@ ee
 efb
 efd
 efeefa
+enquoted
 env
 fac
 fansi
@@ -126,6 +128,7 @@ ORCID
 PackageBluishgreen
 pkgconfig
 pkgdown
+po
 Popow
 processx
 ps
@@ -150,8 +153,10 @@ Sublicensing
 summarizesed
 sys
 systemfonts
+testthat
 textshaping
 tibble
+tidyr
 tinytex
 TUNEL
 utf

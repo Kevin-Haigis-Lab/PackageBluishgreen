@@ -4,10 +4,12 @@
 \alias{plot_tissue}
 \title{Plot the tissue slide showing the FITC intensity}
 \usage{
-plot_tissue(ts, prop = 0.25)
+plot_tissue(ts, color, prop = 0.25)
 }
 \arguments{
 \item{ts}{Tissue slide object to plot.}
+
+\item{color}{The column to use for coloring each cell. (enquoted)}
 
 \item{prop}{The proportion of cells to plot (too many cells can slow performance).}
 }

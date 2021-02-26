@@ -9,6 +9,12 @@ tissue_slide(slide_data)
 \arguments{
 \item{slide_data}{The data from the slide.}
 }
+\value{
+A \code{tissue_slide} object that is a subclass of a tibble.
+}
 \description{
 An S3 class to hold the information for an individual slide.
+}
+\examples{
+pancreas_slide <- tissue_slide(pancreas)
 }

@@ -23,3 +23,19 @@ A manual classification that behaves like a factor.
 \description{
 An S3 class for handling manual classification.
 }
+\examples{
+# An empty classification.
+manual_classification()
+
+# The numeric assignments will be turned into a factor.
+manual_classification(c(1, 2, 1, 2, 1, 1), cutoff = 4000)
+
+# Provide a different function used to transform the data before
+# applying the cutoff.
+manual_classification(
+  c("a", "a", "b", "a", "b"),
+  cutoff = 2.5,
+  transform = log10
+)
+
+}

@@ -11,7 +11,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 <!-- badges: end -->
 
 The goal of `PackageBluishgreen` is to package the internals for
-clustering cells for Olesja Popow (pronounced “pow pow”). The cells were
+clustering cells for Olesja Popow (pronounced “po-pow”). The cells were
 identified using the TUNEL algorithm which output DAPI and FITC values
 for each cell into a CSV. This package takes these outputs and clusters
 them by their FITC intensity.
@@ -34,7 +34,11 @@ This is a basic example which shows you how to solve a common problem:
 ``` r
 library(PackageBluishgreen)
 
-lung_data <- system.file("extdata", "unmicst-OP1165_liver_TUNEL_01.csv", package = "PackageBluishgreen") %>%
+lung_data <- system.file(
+  "extdata",
+  "unmicst-OP1165_liver_TUNEL_01.csv",
+  package = "PackageBluishgreen"
+) %>%
   readr::read_csv(col_types = readr::cols()) %>%
   janitor::clean_names() %>%
   select(
@@ -65,19 +69,19 @@ lung_slide <- tissue_slide(lung_data)
 ```
 
 ``` r
-plot_tissue(lung_slide)
+plot_tissue(lung_slide, color = fitc)
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
 ``` r
-plot_fitc_density(lung_slide)
+plot_density(lung_slide, value = fitc)
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
 ``` r
-lung_slide <- cluster_manually(lung_slide, cutoff = 4, transform = log10)
+lung_slide <- cluster_manually(lung_slide, fitc, cutoff = 4, transform = log10)
 plot_slide_clusters(lung_slide)
 ```
 

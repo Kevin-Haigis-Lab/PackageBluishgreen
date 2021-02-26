@@ -15,3 +15,12 @@ A data.frame of the summarizesed results, one column per classification method.
 \description{
 Create a tibble that summarizes the classification of cells.
 }
+\examples{
+pancreas_slide <- tissue_slide(pancreas)
+pancreas_slide <- cluster_manually(pancreas_slide,
+                                   fitc,
+                                   cutoff = 4,
+                                   transform = log10)
+summarize_cluster_results(pancreas_slide)
+
+}

@@ -13,6 +13,18 @@ plot_slide_clusters(ts, method = "manual", prop = 0.25)
 
 \item{prop}{The proportion of cells to include in the plot (too many cells can impact performance).}
 }
+\value{
+A ggplot2 object.
+}
 \description{
 Plot the clusters on the slide
+}
+\examples{
+pancreas_slide <- tissue_slide(pancreas)
+pancreas_slide <- cluster_manually(pancreas_slide,
+                                   fitc,
+                                   cutoff = 4,
+                                   transform = log10)
+plot_slide_clusters(pancreas_slide)
+
 }
