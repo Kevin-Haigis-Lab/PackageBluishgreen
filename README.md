@@ -20,16 +20,19 @@ them by their FITC intensity.
 
 ## Installation
 
-You can install the released version of PackageBluishgreen from
-[CRAN](https://CRAN.R-project.org) with:
+You can install the released version of ‘PackageBluishgreen’ from
+[GitHub](https://github.com/Kevin-Haigis-Lab/PackageBluishgreen) with:
 
 ``` r
-install.packages("PackageBluishgreen")
+#> If using 'renv'
+renv::install("Kevin-Haigis-Lab/PackageBluishgreen")
+#> else
+devtools::install_github("Kevin-Haigis-Lab/PackageBluishgreen")
 ```
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example with some data from a lung slide.
 
 ``` r
 library(PackageBluishgreen)
