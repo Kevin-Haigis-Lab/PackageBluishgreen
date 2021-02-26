@@ -37,5 +37,4 @@ manual_classification(
   cutoff = 2.5,
   transform = log10
 )
-
 }

@@ -22,9 +22,9 @@ Plot the clusters on the slide
 \examples{
 pancreas_slide <- tissue_slide(pancreas)
 pancreas_slide <- cluster_manually(pancreas_slide,
-                                   fitc,
-                                   cutoff = 4,
-                                   transform = log10)
+  fitc,
+  cutoff = 4,
+  transform = log10
+)
 plot_slide_clusters(pancreas_slide)
-
 }

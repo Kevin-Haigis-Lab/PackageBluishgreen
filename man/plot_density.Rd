@@ -20,5 +20,4 @@ Plot the distribution of FITC intensities
 \examples{
 pancreas_slide <- tissue_slide(pancreas)
 plot_density(pancreas_slide, fitc)
-
 }

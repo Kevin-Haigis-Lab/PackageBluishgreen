@@ -69,7 +69,7 @@ lung_slide <- tissue_slide(lung_data)
 ```
 
 ```{r}
-plot_tissue(lung_slide, color = fitc)
+plot_tissue(lung_slide, color = log10(fitc))
 ```
 
 ```{r}

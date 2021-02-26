@@ -13,12 +13,11 @@ plot_tissue <- function(ts, color, prop = 0.25) {
   validate_tissue_slide(ts)
   p <- ts %>%
     dplyr::slice_sample(prop = prop) %>%
-    ggplot2::ggplot(ggplot2::aes(x = x, y = y, color = log10({{ color }}))) +
+    ggplot2::ggplot(ggplot2::aes(x = x, y = y, color = {{ color }})) +
     ggplot2::geom_point(size = 0.5, alpha = 0.9)
 
   standard_tissue_plot(p) +
-    ggplot2::scale_color_distiller(type = "div", palette = "RdYlBu") +
-    ggplot2::labs(color = "log10(FITC)")
+    ggplot2::scale_color_distiller(type = "div", palette = "RdYlBu")
 }
 
 utils::globalVariables(c("x", "y"), add = TRUE)

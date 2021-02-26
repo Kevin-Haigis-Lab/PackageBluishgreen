@@ -20,7 +20,13 @@ plot_slide_clusters <- function(ts, method = "manual", prop = 0.25) {
   if (method == "manual") {
     ts$.cluster <- get_manual_classification(ts)
   } else {
-    stop("Only 'manual' is currently supported.")
+    stop(paste(
+      "Only 'manual' is currently supported.",
+      "To request a new clusering method, please open an issue (linked below)",
+      " and comprehensively describe your desired use case.",
+      paste0("=> ", link_to_github_issues()),
+      sep = "\n"
+    ))
   }
   ts <- dplyr::slice_sample(ts, prop = prop)
   p <- ggplot(ts, aes(x = x, y = y, color = .cluster, alpha = .cluster)) +

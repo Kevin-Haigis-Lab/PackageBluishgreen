@@ -20,9 +20,9 @@ function. See the example below for a demonstration.
 \examples{
 pancreas_slide <- tissue_slide(pancreas)
 pancreas_slide <- cluster_manually(pancreas_slide,
-                                   fitc,
-                                   cutoff = 4,
-                                   transform = log10)
+  fitc,
+  cutoff = 4,
+  transform = log10
+)
 get_manual_classification(pancreas_slide)
-
 }
