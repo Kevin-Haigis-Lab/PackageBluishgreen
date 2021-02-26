@@ -13,6 +13,12 @@ plot_tissue(ts, color, prop = 0.25)
 
 \item{prop}{The proportion of cells to plot (too many cells can slow performance).}
 }
+\value{
+A ggplot2 plot
+}
 \description{
 Plots the slide with each point representing a cell and the color represents the intensity of FITC.
+}
+\examples{
+plot_tissue(tissue_slide(pancreas), color = fitc)
 }

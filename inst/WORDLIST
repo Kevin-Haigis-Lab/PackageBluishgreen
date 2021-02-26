@@ -19,6 +19,7 @@ bc
 bca
 bd
 bfb
+bootswatch
 brio
 cachem
 caf
@@ -105,7 +106,9 @@ fsf
 ggplot
 github
 gmail
+Haigis
 highr
+href
 htmltools
 http
 httr
@@ -121,11 +124,13 @@ macOS
 magrittr
 memoise
 MERCHANTABILITY
+navbar
 noncommercially
 Olesja
 openssl
 ORCID
 PackageBluishgreen
+params
 pkgconfig
 pkgdown
 po
@@ -146,10 +151,12 @@ rprojroot
 Rscript
 rstudio
 RStudio
+Statisitics
 stringi
 stringr
 sublicenses
 Sublicensing
+summarization
 summarizesed
 sys
 systemfonts

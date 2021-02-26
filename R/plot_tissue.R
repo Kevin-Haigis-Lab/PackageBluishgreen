@@ -6,6 +6,10 @@
 #' @param color The column to use for coloring each cell. (enquoted)
 #' @param prop The proportion of cells to plot (too many cells can slow performance).
 #'
+#' @return A ggplot2 plot
+#'
+#' @examples
+#' plot_tissue(tissue_slide(pancreas), color = fitc)
 #' @import rlang
 #' @importFrom dplyr %>%
 #' @export plot_tissue
