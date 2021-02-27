@@ -1,6 +1,6 @@
 Package: PackageBluishgreen
 Title: Classify cells by fluorescence
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: 
     person(given = "Joshua",
            family = "Cook",

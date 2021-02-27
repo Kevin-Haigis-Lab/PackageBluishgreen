@@ -1,3 +1,7 @@
+# PackageBluishgreen 0.1.1
+
+- Add the ability to add metadata to a tissue slide object.
+
 # PackageBluishgreen 0.1.0
 
 - A basic feature set has been created, documented, and tested.
