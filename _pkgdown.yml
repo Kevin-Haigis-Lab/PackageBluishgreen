@@ -30,6 +30,8 @@ reference:
     and applied classification methods.
   contents:
   - tissue_slide
+  - set_slide_metadata
+  - get_slide_metadata
 
 - title: Classification
   desc: >

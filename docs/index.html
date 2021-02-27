@@ -125,17 +125,26 @@
 <span class="co">#&gt; #   orientation &lt;dbl&gt;</span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">lung_slide</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tissue_slide.html">tissue_slide</a></span><span class="op">(</span><span class="va">lung_data</span><span class="op">)</span></code></pre></div>
+<p>The slide can store metadata, too. It can be added to the slide when it is instantiated with <code><a href="reference/tissue_slide.html">tissue_slide()</a></code> using the <code>metadata</code> parameter or can be added to an existing tissue slide object using <code><a href="reference/set_slide_metadata.html">set_slide_metadata()</a></code></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plot_tissue.html">plot_tissue</a></span><span class="op">(</span><span class="va">lung_slide</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">fitc</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%"></p>
+<code class="sourceCode R"><span class="va">lung_slide</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/set_slide_metadata.html">set_slide_metadata</a></span><span class="op">(</span><span class="va">lung_slide</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>tissue <span class="op">=</span> <span class="st">"lung"</span>, mouse <span class="op">=</span> <span class="st">"OP24"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="reference/get_slide_metadata.html">get_slide_metadata</a></span><span class="op">(</span><span class="va">lung_slide</span><span class="op">)</span>
+<span class="co">#&gt; $tissue</span>
+<span class="co">#&gt; [1] "lung"</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $mouse</span>
+<span class="co">#&gt; [1] "OP24"</span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plot_density.html">plot_density</a></span><span class="op">(</span><span class="va">lung_slide</span>, value <span class="op">=</span> <span class="va">fitc</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="reference/plot_tissue.html">plot_tissue</a></span><span class="op">(</span><span class="va">lung_slide</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">fitc</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-4-1.png" width="100%"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">lung_slide</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cluster_manually.html">cluster_manually</a></span><span class="op">(</span><span class="va">lung_slide</span>, <span class="va">fitc</span>, cutoff <span class="op">=</span> <span class="fl">4</span>, transform <span class="op">=</span> <span class="va">log10</span><span class="op">)</span>
-<span class="fu"><a href="reference/plot_slide_clusters.html">plot_slide_clusters</a></span><span class="op">(</span><span class="va">lung_slide</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="reference/plot_density.html">plot_density</a></span><span class="op">(</span><span class="va">lung_slide</span>, value <span class="op">=</span> <span class="va">fitc</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-5-1.png" width="100%"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">lung_slide</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cluster_manually.html">cluster_manually</a></span><span class="op">(</span><span class="va">lung_slide</span>, <span class="va">fitc</span>, cutoff <span class="op">=</span> <span class="fl">4</span>, transform <span class="op">=</span> <span class="va">log10</span><span class="op">)</span>
+<span class="fu"><a href="reference/plot_slide_clusters.html">plot_slide_clusters</a></span><span class="op">(</span><span class="va">lung_slide</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-6-1.png" width="100%"></p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/summarize_cluster_results.html">summarize_cluster_results</a></span><span class="op">(</span><span class="va">lung_slide</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   manual_cluster      n</span>
