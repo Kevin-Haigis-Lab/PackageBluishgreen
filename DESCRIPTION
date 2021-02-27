@@ -28,3 +28,4 @@ Imports:
     tidyr,
     digest
 Config/testthat/edition: 3
+URL: https://kevin-haigis-lab.github.io/PackageBluishgreen

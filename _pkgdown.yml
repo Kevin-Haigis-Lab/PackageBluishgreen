@@ -1,3 +1,5 @@
+url: https://kevin-haigis-lab.github.io/PackageBluishgreen
+
 template:
   params:
     bootswatch: flatly
@@ -21,7 +23,7 @@ navbar:
       href: news/index.html
     github:
       icon: fa-github fa-lg
-      href: https://github.com/Kevin-Haigis-Lab/PackageBluishgreen
+      href: https://kevin-haigis-lab.github.io/PackageBluishgreen/
 
 reference:
 - title: Tissue Slide
