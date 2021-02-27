@@ -23,7 +23,7 @@ Imports:
     dplyr,
     assertr,
     ggplot2,
-    tibble,
+    tibble (== 3.0.6),
     rlang,
     tidyr,
     digest

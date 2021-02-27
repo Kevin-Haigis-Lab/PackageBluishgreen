@@ -18,5 +18,4 @@ Extract the metadata stored with a tissue slide object. To set the metadata, use
 \examples{
 slide <- tissue_slide(pancreas, metadata = list(tissue = "pancreas", mouse = "OP24"))
 get_slide_metadata(slide)
-
 }

@@ -21,5 +21,4 @@ Write the metadata stored with a tissue slide object. To get the metadata, use t
 slide <- tissue_slide(pancreas, metadata = list(tissue = "pancreas", mouse = "OP24"))
 slide <- set_slide_metadata(slide, list(tissue = "not pancreas", mouse = "Mickey"))
 get_slide_metadata(slide)
-
 }
