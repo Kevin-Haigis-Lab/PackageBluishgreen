@@ -71,6 +71,14 @@ head(lung_data)
 lung_slide <- tissue_slide(lung_data)
 ```
 
+The slide can store metadata, too.
+It can be added to the slide when it is instantiated with `tissue_slide()` using the `metadata` parameter or can be added to an existing tissue slide object using `set_slide_metadata()`
+
+```{r}
+lung_slide <- set_slide_metadata(lung_slide, list(tissue = "lung", mouse = "OP24"))
+get_slide_metadata(lung_slide)
+```
+
 ```{r}
 plot_tissue(lung_slide, color = log10(fitc))
 ```
