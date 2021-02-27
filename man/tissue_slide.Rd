@@ -4,10 +4,12 @@
 \alias{tissue_slide}
 \title{Tissue slide information}
 \usage{
-tissue_slide(slide_data)
+tissue_slide(slide_data, metadata = list())
 }
 \arguments{
 \item{slide_data}{The data from the slide.}
+
+\item{metadata}{Additional metadata as a list with arbitrary structure and values.}
 }
 \value{
 A \code{tissue_slide} object that is a subclass of a tibble.

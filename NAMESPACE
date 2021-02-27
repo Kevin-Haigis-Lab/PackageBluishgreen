@@ -2,10 +2,12 @@
 
 export(cluster_manually)
 export(get_manual_classification)
+export(get_slide_metadata)
 export(manual_classification)
 export(plot_density)
 export(plot_slide_clusters)
 export(plot_tissue)
+export(set_slide_metadata)
 export(summarize_cluster_results)
 export(tissue_slide)
 import(ggplot2)

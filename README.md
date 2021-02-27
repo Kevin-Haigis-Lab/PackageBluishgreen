@@ -71,24 +71,39 @@ head(lung_data)
 lung_slide <- tissue_slide(lung_data)
 ```
 
+The slide can store metadata, too. It can be added to the slide when it
+is instantiated with `tissue_slide()` using the `metadata` parameter or
+can be added to an existing tissue slide object using
+`set_slide_metadata()`
+
+``` r
+lung_slide <- set_slide_metadata(lung_slide, list(tissue = "lung", mouse = "OP24"))
+get_slide_metadata(lung_slide)
+#> $tissue
+#> [1] "lung"
+#> 
+#> $mouse
+#> [1] "OP24"
+```
+
 ``` r
 plot_tissue(lung_slide, color = log10(fitc))
 ```
 
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
 ``` r
 plot_density(lung_slide, value = fitc)
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
 ``` r
 lung_slide <- cluster_manually(lung_slide, fitc, cutoff = 4, transform = log10)
 plot_slide_clusters(lung_slide)
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
 
 ``` r
 summarize_cluster_results(lung_slide)
