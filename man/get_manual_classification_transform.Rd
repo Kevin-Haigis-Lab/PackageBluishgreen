@@ -23,5 +23,4 @@ mc <- manual_classification(
 )
 f <- get_manual_classification_transform(mc)
 f(100)
-
 }

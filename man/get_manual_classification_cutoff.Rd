@@ -22,5 +22,4 @@ mc <- manual_classification(
   transform = log10
 )
 get_manual_classification_cutoff(mc)
-
 }
