@@ -18,12 +18,18 @@ navbar:
     reference:
       text: Reference
       href: reference/index.html
+    articles:
+      text: Vignettes
+      menu:
+      - text: Manual classification
+        href: articles/manual-classification.html
     news:
       text: News
       href: news/index.html
     github:
       icon: fa-github fa-lg
       href: https://kevin-haigis-lab.github.io/PackageBluishgreen/
+
 
 reference:
 - title: Tissue Slide
@@ -62,3 +68,14 @@ reference:
     Some example data sets.
   contents:
   - pancreas
+
+
+articles:
+- title: Manual classification
+  desc: >
+    A full example of performing a manual classification on slide data. This
+    tutorial walks through the entire process, starting from a data frame of
+    slide data, visualizing the data, applying a manual cutoff to cluster the
+    cells, and visualizing and summarizing the results.
+  contents:
+  - manual-classification

@@ -55,3 +55,42 @@ validate_manual_classification <- function(mc) {
   stopifnot(is.function(attr(mc, "transform")))
   return(TRUE)
 }
+
+#' Get the cutoff of a manual classification object.
+#'
+#' @param mc A manual classification object.
+#'
+#' @return The cutoff value.
+#'
+#' @examples
+#' mc <- manual_classification(
+#'   c("a", "a", "b", "a", "b"),
+#'   cutoff = 2.5,
+#'   transform = log10
+#' )
+#' get_manual_classification_cutoff(mc)
+#' @export get_manual_classification_cutoff
+get_manual_classification_cutoff <- function(mc) {
+  validate_manual_classification(mc)
+  return(attr(mc, "cutoff"))
+}
+
+#' Get the transform function of a manual classification object.
+#'
+#' @param mc A manual classification object.
+#'
+#' @return The tranform function.
+#'
+#' @examples
+#' mc <- manual_classification(
+#'   c("a", "a", "b", "a", "b"),
+#'   cutoff = 2.5,
+#'   transform = log10
+#' )
+#' f <- get_manual_classification_transform(mc)
+#' f(100)
+#' @export get_manual_classification_transform
+get_manual_classification_transform <- function(mc) {
+  validate_manual_classification(mc)
+  return(attr(mc, "transform"))
+}

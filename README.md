@@ -12,11 +12,10 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 
 The goal of `PackageBluishgreen` is to package the internals for
 clustering cells for Olesja Popow (pronounced “po-pow”). The cells were
-identified using the TUNEL algorithm which output DAPI and FITC values
-for each cell into a CSV. This package takes these outputs and clusters
-them by their FITC intensity.
-
-> This package is still under development and the API may change.
+identified using a separate algorithm which output DAPI and FITC values
+for each cell into a CSV. This package maintains this data in a data
+structure called `tissue_slide` and manages any classification methods
+applied to the cells.
 
 ## Installation
 
@@ -30,86 +29,99 @@ renv::install("Kevin-Haigis-Lab/PackageBluishgreen")
 devtools::install_github("Kevin-Haigis-Lab/PackageBluishgreen")
 ```
 
-## Example
+**The full documentation can be found
+[here](https://kevin-haigis-lab.github.io/PackageBluishgreen/). For
+examples, check out the
+[vignettes](https://kevin-haigis-lab.github.io/PackageBluishgreen/articles/).**
 
-This is a basic example with some data from a lung slide.
+If there is a specific classification method you would like, please open
+an
+[issue](https://github.com/Kevin-Haigis-Lab/PackageBluishgreen/issues)
+on GitHub.
+
+## Example usage
 
 ``` r
 library(PackageBluishgreen)
+```
 
-lung_data <- system.file(
+### The *tissue slide* data structure
+
+The *tissue slide* class is designed to hold three things:
+
+1.  the signal intensity data from a microscopy slide
+2.  metadata for the samples
+3.  classification methods and results
+
+A new tissue slide can be created by just passing in the slide data.
+
+``` r
+pancreas_data <- read.csv(system.file(
   "extdata",
-  "unmicst-OP1165_liver_TUNEL_01.csv",
+  "unmicst-OP1181_pancreas_TUNEL_01.csv",
   package = "PackageBluishgreen"
-) %>%
-  readr::read_csv(col_types = readr::cols()) %>%
-  janitor::clean_names() %>%
-  select(
-    cell_id,
-    x = x_centroid,
-    y = y_centroid,
-    dapi = dapi_nuclei_mask,
-    fitc = fitc_nuclei_mask,
-    area:orientation
-  )
+))
 
-head(lung_data)
-#> # A tibble: 6 x 12
-#>   cell_id      x     y   dapi   fitc  area major_axis_leng… minor_axis_leng…
-#>     <dbl>  <dbl> <dbl>  <dbl>  <dbl> <dbl>            <dbl>            <dbl>
-#> 1       1 20775.  5.19 14990. 29994.   117             15.2            10.3 
-#> 2       2 36155. 54.6  16403. 15586.    95             13.5             9.07
-#> 3       3 36103. 70.5  28111.  2954.   359             27.2            17.3 
-#> 4       4 35866. 69.2  14360. 35306.   249             32.1             9.99
-#> 5       5 36045. 76.5  27555.  9761.   277             21.4            16.5 
-#> 6       6 36004. 83.2  32704.  2969.   824             35.0            30.0 
-#> # … with 4 more variables: eccentricity <dbl>, solidity <dbl>, extent <dbl>,
-#> #   orientation <dbl>
+pancreas_data <- pancreas_data[, c(1, 3:5)]
+colnames(pancreas_data) <- c("cell_id", "fitc", "x", "y")
+
+pancreas_slide <- tissue_slide(pancreas_data, metadata = list(tissue = "pancreas", mouse = "OP1181"))
 ```
 
-``` r
-lung_slide <- tissue_slide(lung_data)
-```
-
-The slide can store metadata, too. It can be added to the slide when it
-is instantiated with `tissue_slide()` using the `metadata` parameter or
-can be added to an existing tissue slide object using
-`set_slide_metadata()`
+The metadata can be easily retrieved.
 
 ``` r
-lung_slide <- set_slide_metadata(lung_slide, list(tissue = "lung", mouse = "OP24"))
-get_slide_metadata(lung_slide)
+get_slide_metadata(pancreas_slide)
 #> $tissue
-#> [1] "lung"
+#> [1] "pancreas"
 #> 
 #> $mouse
-#> [1] "OP24"
+#> [1] "OP1181"
 ```
 
+It is also very easy to plot the data.
+
 ``` r
-plot_tissue(lung_slide, color = log10(fitc))
+plot_tissue(pancreas_slide, color = log10(fitc))
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
+### Manual classification
+
+A more thorough guide can be found in the [“Manual
+classification”](https://kevin-haigis-lab.github.io/PackageBluishgreen/articles/manual-classification.html)
+vignette.
+
+The `cluster_manually()` function should be used to apply a manual
+classification cutoff to the data.
+
 ``` r
-plot_density(lung_slide, value = fitc)
+pancreas_slide <- cluster_manually(pancreas_slide, fitc, 4.3, transform = log10)
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+The results can be easily plotted.
 
 ``` r
-lung_slide <- cluster_manually(lung_slide, fitc, cutoff = 4, transform = log10)
-plot_slide_clusters(lung_slide)
+plot_slide_clusters(pancreas_slide, method = "manual")
 ```
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
 
+A summary of the results can be obtained using the
+`summarize_cluster_results()` function.
+
 ``` r
-summarize_cluster_results(lung_slide)
+summarize_cluster_results(pancreas_slide)
 #> # A tibble: 2 x 2
-#>   manual_cluster      n
-#> * <fct>           <int>
-#> 1 1              153258
-#> 2 2               19132
+#>   manual_cluster     n
+#> * <fct>          <int>
+#> 1 1              66244
+#> 2 2                787
 ```
+
+------------------------------------------------------------------------
+
+Mistakes or questions? Open an
+[issue](https://github.com/Kevin-Haigis-Lab/PackageBluishgreen/issues)
+on Github.

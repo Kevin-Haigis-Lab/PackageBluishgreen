@@ -2,6 +2,8 @@
 
 export(cluster_manually)
 export(get_manual_classification)
+export(get_manual_classification_cutoff)
+export(get_manual_classification_transform)
 export(get_slide_metadata)
 export(manual_classification)
 export(plot_density)
