@@ -27,8 +27,8 @@ navbar:
       text: News
       href: news/index.html
     github:
-      icon: fa-github fa-lg
-      href: https://kevin-haigis-lab.github.io/PackageBluishgreen/
+      icon: fab fa-github fa-lg
+      href: https://github.com/Kevin-Haigis-Lab/PackageBluishgreen
 
 
 reference:
@@ -48,6 +48,8 @@ reference:
   - manual_classification
   - cluster_manually
   - get_manual_classification
+  - get_manual_classification_cutoff
+  - get_manual_classification_transform
 
 - title: Statisitics and summarization
   desc: >
