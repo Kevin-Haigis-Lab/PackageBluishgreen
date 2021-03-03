@@ -46,13 +46,25 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Vignettes
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/manual-classification.html">Manual classification</a>
+    </li>
+  </ul>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="news/index.html">News</a>
 </li>
 <li>
-  <a href="https://github.com/Kevin-Haigis-Lab/PackageBluishgreen">
+  <a href="https://kevin-haigis-lab.github.io/PackageBluishgreen/">
     <span class="fas fa-github fa-lg"></span>
      
   </a>
@@ -74,10 +86,7 @@
 <a href="#packagebluishgreen" class="anchor"></a>PackageBluishgreen</h1></div>
 <!-- badges: start -->
 
-<p>The goal of <code>PackageBluishgreen</code> is to package the internals for clustering cells for Olesja Popow (pronounced “po-pow”). The cells were identified using the TUNEL algorithm which output DAPI and FITC values for each cell into a CSV. This package takes these outputs and clusters them by their FITC intensity.</p>
-<blockquote>
-<p>This package is still under development and the API may change.</p>
-</blockquote>
+<p>The goal of <code>PackageBluishgreen</code> is to package the internals for clustering cells for Olesja Popow (pronounced “po-pow”). The cells were identified using a separate algorithm which output DAPI and FITC values for each cell into a CSV. This package maintains this data in a data structure called <code>tissue_slide</code> and manages any classification methods applied to the cells.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -87,70 +96,68 @@
 <span class="fu">renv</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/renv/reference/install.html">install</a></span><span class="op">(</span><span class="st">"Kevin-Haigis-Lab/PackageBluishgreen"</span><span class="op">)</span>
 <span class="co">#&gt; else</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"Kevin-Haigis-Lab/PackageBluishgreen"</span><span class="op">)</span></code></pre></div>
+<p><strong>The full documentation can be found <a href="https://kevin-haigis-lab.github.io/PackageBluishgreen/">here</a>. For examples, check out the <a href="https://kevin-haigis-lab.github.io/PackageBluishgreen/articles/">vignettes</a>.</strong></p>
+<p>If there is a specific classification method you would like, please open an <a href="https://github.com/Kevin-Haigis-Lab/PackageBluishgreen/issues">issue</a> on GitHub.</p>
 </div>
-<div id="example" class="section level2">
+<div id="example-usage" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h2>
-<p>This is a basic example with some data from a lung slide.</p>
+<a href="#example-usage" class="anchor"></a>Example usage</h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">PackageBluishgreen</span><span class="op">)</span>
-
-<span class="va">lung_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span>
-  <span class="st">"extdata"</span>,
-  <span class="st">"unmicst-OP1165_liver_TUNEL_01.csv"</span>,
-  package <span class="op">=</span> <span class="st">"PackageBluishgreen"</span>
-<span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span>col_types <span class="op">=</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/cols.html">cols</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">janitor</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">select</span><span class="op">(</span>
-    <span class="va">cell_id</span>,
-    x <span class="op">=</span> <span class="va">x_centroid</span>,
-    y <span class="op">=</span> <span class="va">y_centroid</span>,
-    dapi <span class="op">=</span> <span class="va">dapi_nuclei_mask</span>,
-    fitc <span class="op">=</span> <span class="va">fitc_nuclei_mask</span>,
-    <span class="va">area</span><span class="op">:</span><span class="va">orientation</span>
-  <span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">lung_data</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 6 x 12</span>
-<span class="co">#&gt;   cell_id      x     y   dapi   fitc  area major_axis_leng… minor_axis_leng…</span>
-<span class="co">#&gt;     &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span>
-<span class="co">#&gt; 1       1 20775.  5.19 14990. 29994.   117             15.2            10.3 </span>
-<span class="co">#&gt; 2       2 36155. 54.6  16403. 15586.    95             13.5             9.07</span>
-<span class="co">#&gt; 3       3 36103. 70.5  28111.  2954.   359             27.2            17.3 </span>
-<span class="co">#&gt; 4       4 35866. 69.2  14360. 35306.   249             32.1             9.99</span>
-<span class="co">#&gt; 5       5 36045. 76.5  27555.  9761.   277             21.4            16.5 </span>
-<span class="co">#&gt; 6       6 36004. 83.2  32704.  2969.   824             35.0            30.0 </span>
-<span class="co">#&gt; # … with 4 more variables: eccentricity &lt;dbl&gt;, solidity &lt;dbl&gt;, extent &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   orientation &lt;dbl&gt;</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://kevin-haigis-lab.github.io/PackageBluishgreen">PackageBluishgreen</a></span><span class="op">)</span></code></pre></div>
+<div id="the-tissue-slide-data-structure" class="section level3">
+<h3 class="hasAnchor">
+<a href="#the-tissue-slide-data-structure" class="anchor"></a>The <em>tissue slide</em> data structure</h3>
+<p>The <em>tissue slide</em> class is designed to hold three things:</p>
+<ol>
+<li>the signal intensity data from a microscopy slide</li>
+<li>metadata for the samples</li>
+<li>classification methods and results</li>
+</ol>
+<p>A new tissue slide can be created by just passing in the slide data.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">lung_slide</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tissue_slide.html">tissue_slide</a></span><span class="op">(</span><span class="va">lung_data</span><span class="op">)</span></code></pre></div>
-<p>The slide can store metadata, too. It can be added to the slide when it is instantiated with <code><a href="reference/tissue_slide.html">tissue_slide()</a></code> using the <code>metadata</code> parameter or can be added to an existing tissue slide object using <code><a href="reference/set_slide_metadata.html">set_slide_metadata()</a></code></p>
+<code class="sourceCode R"><span class="va">pancreas_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span>
+  <span class="st">"extdata"</span>,
+  <span class="st">"unmicst-OP1181_pancreas_TUNEL_01.csv"</span>,
+  package <span class="op">=</span> <span class="st">"PackageBluishgreen"</span>
+<span class="op">)</span><span class="op">)</span>
+
+<span class="va">pancreas_data</span> <span class="op">&lt;-</span> <span class="va">pancreas_data</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">]</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">pancreas_data</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cell_id"</span>, <span class="st">"fitc"</span>, <span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span>
+
+<span class="va">pancreas_slide</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/tissue_slide.html">tissue_slide</a></span><span class="op">(</span><span class="va">pancreas_data</span>, metadata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>tissue <span class="op">=</span> <span class="st">"pancreas"</span>, mouse <span class="op">=</span> <span class="st">"OP1181"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>The metadata can be easily retrieved.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">lung_slide</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/set_slide_metadata.html">set_slide_metadata</a></span><span class="op">(</span><span class="va">lung_slide</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>tissue <span class="op">=</span> <span class="st">"lung"</span>, mouse <span class="op">=</span> <span class="st">"OP24"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="reference/get_slide_metadata.html">get_slide_metadata</a></span><span class="op">(</span><span class="va">lung_slide</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="reference/get_slide_metadata.html">get_slide_metadata</a></span><span class="op">(</span><span class="va">pancreas_slide</span><span class="op">)</span>
 <span class="co">#&gt; $tissue</span>
-<span class="co">#&gt; [1] "lung"</span>
+<span class="co">#&gt; [1] "pancreas"</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $mouse</span>
-<span class="co">#&gt; [1] "OP24"</span></code></pre></div>
+<span class="co">#&gt; [1] "OP1181"</span></code></pre></div>
+<p>It is also very easy to plot the data.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plot_tissue.html">plot_tissue</a></span><span class="op">(</span><span class="va">lung_slide</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">fitc</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="reference/plot_tissue.html">plot_tissue</a></span><span class="op">(</span><span class="va">pancreas_slide</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">fitc</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-4-1.png" width="100%"></p>
+</div>
+<div id="manual-classification" class="section level3">
+<h3 class="hasAnchor">
+<a href="#manual-classification" class="anchor"></a>Manual classification</h3>
+<p>A more thorough guide can be found in the <a href="https://kevin-haigis-lab.github.io/PackageBluishgreen/articles/manual-classification.html">“Manual classification”</a> vignette.</p>
+<p>The <code><a href="reference/cluster_manually.html">cluster_manually()</a></code> function should be used to apply a manual classification cutoff to the data.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plot_density.html">plot_density</a></span><span class="op">(</span><span class="va">lung_slide</span>, value <span class="op">=</span> <span class="va">fitc</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-5-1.png" width="100%"></p>
+<code class="sourceCode R"><span class="va">pancreas_slide</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cluster_manually.html">cluster_manually</a></span><span class="op">(</span><span class="va">pancreas_slide</span>, <span class="va">fitc</span>, <span class="fl">4.3</span>, transform <span class="op">=</span> <span class="va">log10</span><span class="op">)</span></code></pre></div>
+<p>The results can be easily plotted.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">lung_slide</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cluster_manually.html">cluster_manually</a></span><span class="op">(</span><span class="va">lung_slide</span>, <span class="va">fitc</span>, cutoff <span class="op">=</span> <span class="fl">4</span>, transform <span class="op">=</span> <span class="va">log10</span><span class="op">)</span>
-<span class="fu"><a href="reference/plot_slide_clusters.html">plot_slide_clusters</a></span><span class="op">(</span><span class="va">lung_slide</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="reference/plot_slide_clusters.html">plot_slide_clusters</a></span><span class="op">(</span><span class="va">pancreas_slide</span>, method <span class="op">=</span> <span class="st">"manual"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-6-1.png" width="100%"></p>
+<p>A summary of the results can be obtained using the <code><a href="reference/summarize_cluster_results.html">summarize_cluster_results()</a></code> function.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/summarize_cluster_results.html">summarize_cluster_results</a></span><span class="op">(</span><span class="va">lung_slide</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="reference/summarize_cluster_results.html">summarize_cluster_results</a></span><span class="op">(</span><span class="va">pancreas_slide</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 2 x 2</span>
-<span class="co">#&gt;   manual_cluster      n</span>
-<span class="co">#&gt; * &lt;fct&gt;           &lt;int&gt;</span>
-<span class="co">#&gt; 1 1              153258</span>
-<span class="co">#&gt; 2 2               19132</span></code></pre></div>
+<span class="co">#&gt;   manual_cluster     n</span>
+<span class="co">#&gt; * &lt;fct&gt;          &lt;int&gt;</span>
+<span class="co">#&gt; 1 1              66244</span>
+<span class="co">#&gt; 2 2                787</span></code></pre></div>
+</div>
 </div>
 </div>
   </div>

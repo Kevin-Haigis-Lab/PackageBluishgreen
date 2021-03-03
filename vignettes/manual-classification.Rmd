@@ -1,0 +1,121 @@
+---
+title: "Manual classification"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{manual-classification}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  dpi = 200
+)
+```
+
+The following is a simple demonstration of conducting a manual classification of cells into either FITC low or FITC high.
+
+```{r setup, message=FALSE, warning=FALSE}
+library(PackageBluishgreen)
+library(readr)
+library(dplyr)
+```
+
+## Prepare data
+
+Some example data is shipped with the 'PackageBluishgreen' package.
+They can be accessed using the `system.file()` function as demonstrated below.
+
+```{r}
+list.files(system.file("extdata", package = "PackageBluishgreen"))
+```
+
+We will use the pancreas data set from mouse OP1181.
+
+```{r}
+pancreas_data <- read_csv(system.file(
+  "extdata",
+  "unmicst-OP1181_pancreas_TUNEL_01.csv",
+  package = "PackageBluishgreen"
+))
+
+head(pancreas_data)
+```
+
+We should first clean the column names and reduce clutter by keeping only the columns we will use.
+
+```{r}
+pancreas_data <- pancreas_data %>%
+  janitor::clean_names() %>%
+  select(
+    cell_id,
+    x = x_centroid,
+    y = y_centroid,
+    fitc = fitc_nuclei_mask
+  )
+
+head(pancreas_data)
+```
+
+## Create a tissue slide data structure
+
+First, we must make a tissue slide object.
+We can then apply a manual classification (or any other support methods) to this object.
+The tissue slide can also hold metadata.
+
+```{r}
+pancreas_slide <- tissue_slide(pancreas_data, metadata = list(tissue = "pancreas", mouse = "OP1181."))
+get_slide_metadata(pancreas_slide)
+```
+
+## Visualize signal intensity
+
+The next step is to visualize the data.
+We can use the `plot_tissue()` function to plot the cells on the slide, colored by their FITC intensity.
+
+```{r}
+plot_tissue(pancreas_slide, color = fitc)
+```
+
+It often helps to log-transform the signal intensity.
+
+```{r}
+plot_tissue(pancreas_slide, color = log10(fitc))
+```
+
+We can also see the distribution of FITC intensities using the `plot_density()` function.
+
+```{r}
+plot_density(pancreas_slide, log10(fitc))
+```
+
+## Manual classification
+
+For this example, our goal is to just capture the top percent of the cells, those that are deep red in the image above.
+Judging from the plot, it looks like a value just above $log_{10} 4.3$ should work.
+The classification can be applied to the lung slide using the `cluster_manually()` function.
+Note that the transform function must be passed to the `transform` parameter so it can be used in other operations.
+
+```{r}
+pancreas_slide <- cluster_manually(pancreas_slide, fitc, 4.3, transform = log10)
+```
+
+The classification results can be visualized using the `()` function.
+
+```{r}
+plot_slide_clusters(pancreas_slide, method = "manual")
+```
+
+## Summarize results
+
+A summary of the classification results can be obtained using the `summarize_cluster_results()` function.
+
+```{r}
+summarize_cluster_results(pancreas_slide)
+```
+
+---
+
+Mistakes or questions? Open an [issue](https://github.com/Kevin-Haigis-Lab/PackageBluishgreen/issues) on Github.
