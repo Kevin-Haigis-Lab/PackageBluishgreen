@@ -1,3 +1,8 @@
+# PackageBluishgreen 0.1.2
+
+- Fix bugs with plotting functions.
+- Test to ensure there are no similar regressions in the future.
+
 # PackageBluishgreen 0.1.1
 
 - Add the ability to add metadata to a tissue slide object.
