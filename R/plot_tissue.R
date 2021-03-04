@@ -18,10 +18,11 @@ plot_tissue <- function(ts, color, prop = 0.25) {
   p <- ts %>%
     dplyr::slice_sample(prop = prop) %>%
     ggplot2::ggplot(ggplot2::aes(x = x, y = y, color = {{ color }})) +
-    ggplot2::geom_point(size = 0.5, alpha = 0.9)
-
-  standard_tissue_plot(p) +
-    ggplot2::scale_color_distiller(type = "div", palette = "RdYlBu")
+    ggplot2::geom_point(size = 0.5, alpha = 0.9) +
+    ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0, 0))) +
+    ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = c(0, 0))) +
+    ggplot2::scale_color_distiller(type = "div", palette = "RdYlBu") +
+    theme_tissue_slide()
 }
 
 utils::globalVariables(c("x", "y"), add = TRUE)
