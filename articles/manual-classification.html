@@ -188,11 +188,9 @@
 <p>The next step is to visualize the data. We can use the <code><a href="../reference/plot_tissue.html">plot_tissue()</a></code> function to plot the cells on the slide, colored by their FITC intensity.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_tissue.html">plot_tissue</a></span><span class="op">(</span><span class="va">pancreas_slide</span>, color <span class="op">=</span> <span class="va">fitc</span><span class="op">)</span></code></pre></div>
-<p><img src="manual-classification_files/figure-html/unnamed-chunk-6-1.png" width="1458.33333333333"></p>
 <p>It often helps to log-transform the signal intensity.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_tissue.html">plot_tissue</a></span><span class="op">(</span><span class="va">pancreas_slide</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">fitc</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="manual-classification_files/figure-html/unnamed-chunk-7-1.png" width="1458.33333333333"></p>
 <p>We can also see the distribution of FITC intensities using the <code><a href="../reference/plot_density.html">plot_density()</a></code> function.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_density.html">plot_density</a></span><span class="op">(</span><span class="va">pancreas_slide</span>, <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">fitc</span><span class="op">)</span><span class="op">)</span></code></pre></div>
@@ -207,7 +205,6 @@
 <p>The classification results can be visualized using the <code>()</code> function.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_slide_clusters.html">plot_slide_clusters</a></span><span class="op">(</span><span class="va">pancreas_slide</span>, method <span class="op">=</span> <span class="st">"manual"</span><span class="op">)</span></code></pre></div>
-<p><img src="manual-classification_files/figure-html/unnamed-chunk-10-1.png" width="1458.33333333333"></p>
 </div>
 <div id="summarize-results" class="section level2">
 <h2 class="hasAnchor">

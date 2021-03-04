@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot the clusters on the slide — plot_slide_clusters • PackageBluishgreen</title>
+<title>A ggplot2 theme for tissue slide plots — theme_tissue_slide • PackageBluishgreen</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Plot the clusters on the slide — plot_slide_clusters" />
-<meta property="og:description" content="Plot the clusters on the slide" />
+<meta property="og:title" content="A ggplot2 theme for tissue slide plots — theme_tissue_slide" />
+<meta property="og:description" content="A ggplot2 theme for tissue slide plots" />
 
 
 
@@ -123,64 +123,38 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot the clusters on the slide</h1>
+    <h1>A ggplot2 theme for tissue slide plots</h1>
     
-    <div class="hidden name"><code>plot_slide_clusters.Rd</code></div>
+    <div class="hidden name"><code>theme_tissue_slide.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Plot the clusters on the slide</p>
+    <p>A ggplot2 theme for tissue slide plots</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_slide_clusters</span><span class='op'>(</span>
-  <span class='va'>ts</span>,
-  method <span class='op'>=</span> <span class='st'>"manual"</span>,
-  prop <span class='op'>=</span> <span class='fl'>0.25</span>,
-  point_size <span class='op'>=</span> <span class='fl'>0.5</span>,
-  alpha_values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.2</span>, <span class='fl'>0.7</span><span class='op'>)</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>theme_tissue_slide</span><span class='op'>(</span>base_size <span class='op'>=</span> <span class='fl'>11</span>, base_family <span class='op'>=</span> <span class='st'>"Helvetica"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>ts</th>
-      <td><p>A tissue slide object</p></td>
+      <th>base_size</th>
+      <td><p>Base font size, given in pts.</p></td>
     </tr>
     <tr>
-      <th>method</th>
-      <td><p>The classification method to use. The classification should
-have already been done.</p></td>
-    </tr>
-    <tr>
-      <th>prop</th>
-      <td><p>The proportion of cells to include in the plot (too many cells
-can impact performance).</p></td>
-    </tr>
-    <tr>
-      <th>point_size</th>
-      <td><p>Size of each point.</p></td>
-    </tr>
-    <tr>
-      <th>alpha_values</th>
-      <td><p>A two-value vector where each value indicates the
-transparency of points coming from the two clusters.</p></td>
+      <th>base_family</th>
+      <td><p>Base font family.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A ggplot2 object.</p>
+    <p>A ggplot2 theme.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>pancreas_slide</span> <span class='op'>&lt;-</span> <span class='fu'><a href='tissue_slide.html'>tissue_slide</a></span><span class='op'>(</span><span class='va'>pancreas</span><span class='op'>)</span>
-<span class='va'>pancreas_slide</span> <span class='op'>&lt;-</span> <span class='fu'><a href='cluster_manually.html'>cluster_manually</a></span><span class='op'>(</span><span class='va'>pancreas_slide</span>,
-  <span class='va'>fitc</span>,
-  cutoff <span class='op'>=</span> <span class='fl'>4</span>,
-  transform <span class='op'>=</span> <span class='va'>log10</span>
-<span class='op'>)</span>
-<span class='fu'>plot_slide_clusters</span><span class='op'>(</span><span class='va'>pancreas_slide</span><span class='op'>)</span>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='va'>ts</span> <span class='op'>&lt;-</span> <span class='fu'><a href='tissue_slide.html'>tissue_slide</a></span><span class='op'>(</span><span class='va'>pancreas</span><span class='op'>)</span>
+<span class='fu'><a href='plot_tissue.html'>plot_tissue</a></span><span class='op'>(</span><span class='va'>ts</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>theme_tissue_slide</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='img'><img src='theme_tissue_slide-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
