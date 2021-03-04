@@ -4,21 +4,38 @@
 \alias{plot_tissue}
 \title{Plot the tissue slide showing the FITC intensity}
 \usage{
-plot_tissue(ts, color, prop = 0.25)
+plot_tissue(
+  ts,
+  color,
+  prop = 0.25,
+  point_size = 0.5,
+  point_alpha = 0.8,
+  color_pal = "RdYlBu"
+)
 }
 \arguments{
 \item{ts}{Tissue slide object to plot.}
 
 \item{color}{The column to use for coloring each cell. (enquoted)}
 
-\item{prop}{The proportion of cells to plot (too many cells can slow performance).}
+\item{prop}{The proportion of cells to plot (too many cells can slow
+performance).}
+
+\item{point_size}{Size of each point.}
+
+\item{point_alpha}{Transparency of each point.}
+
+\item{color_pal}{A diverging color palette to be passed to
+\code{ggplot2::scale_color_distiller()}.}
 }
 \value{
 A ggplot2 plot
 }
 \description{
-Plots the slide with each point representing a cell and the color represents the intensity of FITC.
+Plots the slide with each point representing a cell and the color represents
+the intensity of FITC.
 }
 \examples{
 plot_tissue(tissue_slide(pancreas), color = fitc)
+
 }
