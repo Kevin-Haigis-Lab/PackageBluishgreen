@@ -15,9 +15,16 @@ plot_slide_clusters(
 \arguments{
 \item{ts}{A tissue slide object}
 
-\item{method}{The classification method to use. The classification should have already been done.}
+\item{method}{The classification method to use. The classification should
+have already been done.}
 
-\item{prop}{The proportion of cells to include in the plot (too many cells can impact performance).}
+\item{prop}{The proportion of cells to include in the plot (too many cells
+can impact performance).}
+
+\item{point_size}{Size of each point.}
+
+\item{alpha_values}{A two-value vector where each value indicates the
+transparency of points coming from the two clusters.}
 }
 \value{
 A ggplot2 object.

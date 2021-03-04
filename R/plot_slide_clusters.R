@@ -1,8 +1,13 @@
 #' Plot the clusters on the slide
 #'
 #' @param ts A tissue slide object
-#' @param method The classification method to use. The classification should have already been done.
-#' @param prop The proportion of cells to include in the plot (too many cells can impact performance).
+#' @param method The classification method to use. The classification should
+#'   have already been done.
+#' @param prop The proportion of cells to include in the plot (too many cells
+#'   can impact performance).
+#' @param point_size Size of each point.
+#' @param alpha_values A two-value vector where each value indicates the
+#'   transparency of points coming from the two clusters.
 #'
 #' @return A ggplot2 object.
 #'
