@@ -4,14 +4,27 @@
 \alias{plot_slide_clusters}
 \title{Plot the clusters on the slide}
 \usage{
-plot_slide_clusters(ts, method = "manual", prop = 0.25)
+plot_slide_clusters(
+  ts,
+  method = "manual",
+  prop = 0.25,
+  point_size = 0.5,
+  alpha_values = c(0.2, 0.7)
+)
 }
 \arguments{
 \item{ts}{A tissue slide object}
 
-\item{method}{The classification method to use. The classification should have already been done.}
+\item{method}{The classification method to use. The classification should
+have already been done.}
 
-\item{prop}{The proportion of cells to include in the plot (too many cells can impact performance).}
+\item{prop}{The proportion of cells to include in the plot (too many cells
+can impact performance).}
+
+\item{point_size}{Size of each point.}
+
+\item{alpha_values}{A two-value vector where each value indicates the
+transparency of points coming from the two clusters.}
 }
 \value{
 A ggplot2 object.
