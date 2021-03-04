@@ -37,5 +37,4 @@ the intensity of FITC.
 }
 \examples{
 plot_tissue(tissue_slide(pancreas), color = fitc)
-
 }

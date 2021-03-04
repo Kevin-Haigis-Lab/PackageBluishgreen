@@ -4,7 +4,13 @@
 \alias{plot_slide_clusters}
 \title{Plot the clusters on the slide}
 \usage{
-plot_slide_clusters(ts, method = "manual", prop = 0.25)
+plot_slide_clusters(
+  ts,
+  method = "manual",
+  prop = 0.25,
+  point_size = 0.5,
+  alpha_values = c(0.2, 0.7)
+)
 }
 \arguments{
 \item{ts}{A tissue slide object}
