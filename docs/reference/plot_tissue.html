@@ -40,7 +40,8 @@
 
 
 <meta property="og:title" content="Plot the tissue slide showing the FITC intensity — plot_tissue" />
-<meta property="og:description" content="Plots the slide with each point representing a cell and the color represents the intensity of FITC." />
+<meta property="og:description" content="Plots the slide with each point representing a cell and the color represents
+the intensity of FITC." />
 
 
 
@@ -129,10 +130,18 @@
     </div>
 
     <div class="ref-description">
-    <p>Plots the slide with each point representing a cell and the color represents the intensity of FITC.</p>
+    <p>Plots the slide with each point representing a cell and the color represents
+the intensity of FITC.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_tissue</span><span class='op'>(</span><span class='va'>ts</span>, <span class='va'>color</span>, prop <span class='op'>=</span> <span class='fl'>0.25</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>plot_tissue</span><span class='op'>(</span>
+  <span class='va'>ts</span>,
+  <span class='va'>color</span>,
+  prop <span class='op'>=</span> <span class='fl'>0.25</span>,
+  point_size <span class='op'>=</span> <span class='fl'>0.5</span>,
+  point_alpha <span class='op'>=</span> <span class='fl'>0.8</span>,
+  color_pal <span class='op'>=</span> <span class='st'>"RdYlBu"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -147,7 +156,21 @@
     </tr>
     <tr>
       <th>prop</th>
-      <td><p>The proportion of cells to plot (too many cells can slow performance).</p></td>
+      <td><p>The proportion of cells to plot (too many cells can slow
+performance).</p></td>
+    </tr>
+    <tr>
+      <th>point_size</th>
+      <td><p>Size of each point.</p></td>
+    </tr>
+    <tr>
+      <th>point_alpha</th>
+      <td><p>Transparency of each point.</p></td>
+    </tr>
+    <tr>
+      <th>color_pal</th>
+      <td><p>A diverging color palette to be passed to
+<code><a href='https://ggplot2.tidyverse.org/reference/scale_brewer.html'>ggplot2::scale_color_distiller()</a></code>.</p></td>
     </tr>
     </table>
 

@@ -64,6 +64,7 @@ reference:
   - plot_tissue
   - plot_density
   - plot_slide_clusters
+  - theme_tissue_slide
 
 - title: Data
   desc: >
