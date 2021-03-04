@@ -3,6 +3,16 @@ mock_data <- function() {
   dplyr::filter(pancreas, x < 5000 & y < 5000)
 }
 
+test_that("tissue slide cluster plot can build", {
+  d <- mock_data()
+  ts <- tissue_slide(d)
+  ts <- cluster_manually(ts, fitc, 4, transform = log10)
+  p <- plot_slide_clusters(ts, method = "manual")
+  expect_true(inherits(p, "gg"))
+  p_built <- ggplot2::ggplot_build(p)
+  expect_true(inherits(p_built, "ggplot_built"))
+})
+
 test_that("can plot a tissue slide with manual classification", {
   d <- mock_data()
   ts <- tissue_slide(d)

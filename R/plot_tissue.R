@@ -26,7 +26,7 @@ plot_tissue <- function(ts,
                         point_alpha = 0.8,
                         color_pal = "RdYlBu") {
   validate_tissue_slide(ts)
-  p <- ts %>%
+  ts %>%
     dplyr::slice_sample(prop = prop) %>%
     ggplot2::ggplot(ggplot2::aes(x = x, y = y, color = {{ color }})) +
     ggplot2::geom_point(size = point_size, alpha = point_alpha) +

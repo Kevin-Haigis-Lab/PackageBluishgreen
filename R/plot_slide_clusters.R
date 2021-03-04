@@ -42,7 +42,8 @@ plot_slide_clusters <- function(ts,
   }
 
   ts <- dplyr::slice_sample(ts, prop = prop)
-  p <- ggplot2::ggplot(ts, ggplot2::aes(color = .cluster, alpha = .cluster)) +
+
+  ggplot2::ggplot(ts, ggplot2::aes(x = x, y = y)) +
     ggplot2::geom_point(
       ggplot2::aes(color = .cluster, alpha = .cluster),
       size = point_size
